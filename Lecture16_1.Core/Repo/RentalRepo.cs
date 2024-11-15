@@ -107,7 +107,7 @@ namespace Lecture16_1.Core.Repo
             {
                 connection.Open();
 
-                rentalsInDateRange = connection.Query<NuomosUzsakymas>("SELECT * FROM NuomosUzsakymai WHERE (PradziosData BETWEEN @startDate AND @endDate) AND (PabaigosData BETWEEN @startDate AND @endDate)", new { startDate, endDate }).ToList();
+                rentalsInDateRange = connection.Query<NuomosUzsakymas>("SELECT * FROM NuomosUzsakymai WHERE (PradziosData BETWEEN @startDate AND @endDate) OR (PabaigosData BETWEEN @startDate AND @endDate)", new { startDate, endDate }).ToList();
             }
             return rentalsInDateRange;
         }

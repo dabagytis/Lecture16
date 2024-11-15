@@ -1,7 +1,9 @@
 using Lecture16_1.Core.Contracts.IRepo;
+using Lecture16_1.Core.Contracts.ISave;
 using Lecture16_1.Core.Contracts.IService;
 using Lecture16_1.Core.Repo;
 using Lecture16_1.Core.Services;
+using Lecture16_1.Core.Utils.CreateBackup;
 using Microsoft.AspNetCore.Hosting.Server;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -30,6 +32,12 @@ ICarService carService = new CarService(carRepo, rentalRepo);
 builder.Services.AddTransient<ICarRepo, CarRepo>(x => new CarRepo(serverPath));
 builder.Services.AddTransient<ICarService, CarService>();
 
+builder.Services.AddTransient<ISaveClients, SaveClients>(x => new SaveClients("Clients.txt"));
+builder.Services.AddTransient<ISaveElectricCars, SaveElectricCars>(x => new SaveElectricCars("ElectricCars.txt"));
+builder.Services.AddTransient<ISavePetrolCars, SavePetrolCars>(x => new SavePetrolCars("PetrolCars.txt"));
+builder.Services.AddTransient<ISaveRentals, SaveRentals>(x => new SaveRentals("Rentals.txt"));
+builder.Services.AddTransient<ISaveWorkers, SaveWorkers>(x => new SaveWorkers("Workers.txt"));
+builder.Services.AddTransient<ISaveService, SaveService>();
 
 
 builder.Services.AddControllers();
