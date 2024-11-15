@@ -2,6 +2,7 @@
 using Lecture16_1.Core.Models.Car;
 using Lecture16_1.Core.Utils;
 using Microsoft.AspNetCore.Mvc;
+using Serilog;
 using System.Text.Json;
 
 namespace Lecture16_1.API.Controllers
@@ -19,13 +20,31 @@ namespace Lecture16_1.API.Controllers
         [HttpPost("AddElectricCar")]
         public void AddElectricCar(ElektrinisAutomobilis automobilis)
         {
-            _carService.AddCar(automobilis);
+            Log.Information("AddElectricCar request received");
+            try
+            {
+                _carService.AddCar(automobilis);
+                Log.Information("AddElectricCar request completed");
+            }
+            catch(Exception e)
+            {
+                Log.Error($"Could not complete method AddElectricCar. Exception thrown {e.Message}");
+            }
         }
 
         [HttpPost("AddPetrolCar")]
         public void AddPetrolCar(NaftosAutomobilis automobilis)
         {
-            _carService.AddCar(automobilis);
+            Log.Information("AddPetrolCar request received");
+            try
+            {
+                _carService.AddCar(automobilis);
+                Log.Information("AddPetrolCar request completed");
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Could not complete method AddPetrolCar. Exception thrown {e.Message}");
+            }
         }
 
         [HttpDelete("DeleteCar")]

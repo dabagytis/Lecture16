@@ -5,6 +5,7 @@ using Lecture16_1.Core.Repo;
 using Lecture16_1.Core.Services;
 using Lecture16_1.Core.Utils.CreateBackup;
 using Microsoft.AspNetCore.Hosting.Server;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -59,5 +60,10 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+var log = new LoggerConfiguration().MinimumLevel.Debug()
+    .WriteTo.Console()
+    .WriteTo.File("logs/CarRentalLog.txt", rollingInterval: RollingInterval.Day).CreateLogger();
+Log.Logger = log;
 
 app.Run();
