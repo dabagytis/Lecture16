@@ -162,5 +162,20 @@ namespace Lecture16_1.API.Controllers
                 Log.Error($"Could not complete method UpdateRental. Exception thrown {e.Message}");
             }
         }
+
+        [HttpGet("RentalReceipt")]
+        public void RentalReceipt(int id)
+        {
+            Log.Information("RentalReceipt request received");
+            try
+            {
+                _rentalService.RentalReceipt(id);
+                Log.Information("RentalReceipt request completed");
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Could not complete method RentalReceipt. Exception thrown {e.Message}");
+            }
+        }
     }
 }

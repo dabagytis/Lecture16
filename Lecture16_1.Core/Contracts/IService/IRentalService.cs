@@ -18,5 +18,6 @@ namespace Lecture16_1.Core.Contracts.IService
         List<NuomosUzsakymas> GetRentalsByClient(int id);
         List<NuomosUzsakymas> GetRentalsByWorker(int id);
         List<NuomosUzsakymas> GetRentalsInDateRange(DateTime startDate, DateTime endDate);
+        void RentalReceipt(int id);
     }
 }

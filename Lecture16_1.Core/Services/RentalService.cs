@@ -1,6 +1,7 @@
 ﻿using Lecture16_1.Core.Contracts.IRepo;
 using Lecture16_1.Core.Contracts.IService;
 using Lecture16_1.Core.Models;
+using Lecture16_1.Core.Models.Car;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,9 +13,13 @@ namespace Lecture16_1.Core.Services
     public class RentalService : IRentalService
     {
         private readonly IRentalRepo _rentalRepo;
-        public RentalService(IRentalRepo rentalRepo)
+        private readonly IReceiptRepo _receiptRepo;
+        private readonly ICarRepo _carRepo;
+        public RentalService(IRentalRepo rentalRepo, IReceiptRepo receiptRepo, ICarRepo carRepo)
         {
             _rentalRepo = rentalRepo;
+            _receiptRepo = receiptRepo;
+            _carRepo = carRepo;
         }
 
         // Methods
@@ -62,6 +67,13 @@ namespace Lecture16_1.Core.Services
         public void UpdateRental(NuomosUzsakymas nuomosUzsakymas)
         {
             _rentalRepo.UpdateRental(nuomosUzsakymas);
+        }
+
+        public void RentalReceipt(int id)
+        {
+            NuomosUzsakymas rentalForPrint = _rentalRepo.GetRental(id);
+            Automobilis carForPrint = _carRepo.GetCar(rentalForPrint.AutomobilisId);
+            _receiptRepo.RentalReceipt(rentalForPrint, carForPrint);
         }
     }
 }

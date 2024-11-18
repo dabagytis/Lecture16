@@ -5,31 +5,25 @@ using Lecture16_1.Core.Repo;
 using Lecture16_1.Core.Services;
 using Lecture16_1.Core.Utils.CreateBackup;
 using Microsoft.AspNetCore.Hosting.Server;
+using MongoDB.Driver;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddSingleton<IMongoClient, MongoClient>(sp => new MongoClient(builder.Configuration.GetConnectionString("MongoDb")));
 
 string serverPath = "Server=localhost;Database=Lecture16;Trusted_Connection=True;TrustServerCertificate=true;";
 
-IClientRepo clientRepo = new ClientRepo(serverPath);
-IClientService clientService = new ClientService(clientRepo);
 builder.Services.AddTransient<IClientRepo, ClientRepo>(x => new ClientRepo(serverPath));
 builder.Services.AddTransient<IClientService, ClientService>();
 
-IRentalRepo rentalRepo = new RentalRepo(serverPath);
-IRentalService rentalService = new RentalService(rentalRepo);
 builder.Services.AddTransient<IRentalRepo, RentalRepo>(x => new RentalRepo(serverPath));
 builder.Services.AddTransient<IRentalService, RentalService>();
 
-IWorkerRepo workerRepo = new WorkerRepo(serverPath);
-IWorkerService workerService = new WorkerService(workerRepo);
 builder.Services.AddTransient<IWorkerRepo, WorkerRepo>(x => new WorkerRepo(serverPath));
 builder.Services.AddTransient<IWorkerService, WorkerService>();
 
-ICarRepo carRepo = new CarRepo(serverPath);
-ICarService carService = new CarService(carRepo, rentalRepo);
 builder.Services.AddTransient<ICarRepo, CarRepo>(x => new CarRepo(serverPath));
 builder.Services.AddTransient<ICarService, CarService>();
 
@@ -39,6 +33,7 @@ builder.Services.AddTransient<ISavePetrolCars, SavePetrolCars>(x => new SavePetr
 builder.Services.AddTransient<ISaveRentals, SaveRentals>(x => new SaveRentals("Rentals.txt"));
 builder.Services.AddTransient<ISaveWorkers, SaveWorkers>(x => new SaveWorkers("Workers.txt"));
 builder.Services.AddTransient<ISaveService, SaveService>();
+builder.Services.AddTransient<IReceiptRepo, ReceiptRepo>();
 
 
 builder.Services.AddControllers();
