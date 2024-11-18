@@ -50,37 +50,97 @@ namespace Lecture16_1.API.Controllers
         [HttpDelete("DeleteCar")]
         public void DeleteCar(int id)
         {
-            _carService.DeleteCar(id);
+            Log.Information("DeleteCar request received");
+            try
+            {
+                _carService.DeleteCar(id);
+                Log.Information("DeleteCar request completed");
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Could not complete method DeleteCar. Exception thrown {e.Message}");
+            }
         }
 
         [HttpGet("GetAllCars")]
         public IActionResult GetAllCars()
         {
-            return Ok(JsonCustomConverter.SerializeWithPolymorphism(_carService.GetAllCars()));
+            Log.Information("GetAllCars request received");
+            try
+            {
+                var x = JsonCustomConverter.SerializeWithPolymorphism(_carService.GetAllCars());
+                Log.Information("GetAllCars request completed");
+                return Ok(x);
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Could not complete method GetAllCars. Exception thrown {e.Message}");
+            }
+            return NotFound();
         }
 
         [HttpGet("GetAvailableCars")]
-        public List<Automobilis> GetAvailableCars(DateTime startDate, DateTime endDate)
+        public IActionResult GetAvailableCars(DateTime startDate, DateTime endDate)
         {
-            return _carService.GetAvailableCars(startDate, endDate);
+            Log.Information("GetAvailableCars request received");
+            try
+            {
+                var x = _carService.GetAvailableCars(startDate, endDate);
+                Log.Information("GetAvailableCars request completed");
+                return Ok(x);
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Could not complete method GetAvailableCars. Exception thrown {e.Message}");
+            }
+            return NotFound();
         }
 
         [HttpGet("GetCar")]
-        public Automobilis GetCar(int id)
+        public IActionResult GetCar(int id)
         {
-            return _carService.GetCar(id);
+            Log.Information("GetCar request received");
+            try
+            {
+                var x = _carService.GetCar(id);
+                Log.Information("GetCar request completed");
+                return Ok(x);
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Could not complete method GetCar. Exception thrown {e.Message}");
+            }
+            return NotFound();
         }
 
         [HttpPatch("UpdateElectricCar")]
         public void UpdateElectricCar(ElektrinisAutomobilis automobilis)
         {
-            _carService.UpdateCar(automobilis);
+            Log.Information("UpdateElectricCar request received");
+            try
+            {
+                _carService.UpdateCar(automobilis);
+                Log.Information("UpdateElectricCar request completed");
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Could not complete method UpdateElectricCar. Exception thrown {e.Message}");
+            }
         }
 
         [HttpPatch("UpdatePetrolCar")]
         public void UpdatePetrolCar(NaftosAutomobilis automobilis)
         {
-            _carService.UpdateCar(automobilis);
+            Log.Information("UpdatePetrolCar request received");
+            try
+            {
+                _carService.UpdateCar(automobilis);
+                Log.Information("UpdatePetrolCar request completed");
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Could not complete method UpdatePetrolCar. Exception thrown {e.Message}");
+            }
         }
     }
 }
