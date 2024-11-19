@@ -35,13 +35,13 @@ namespace Lecture16_1.Core.Services
             _saveWorkers = saveWorkers;
         }
 
-        public void SaveAll()
+        public async Task SaveAll()
         {
-            _saveClients.ClientsToFile(_clientService.GetAllClients());
-            _saveElectricCars.ElectricCarsToFile(_carService.GetAllCars());
-            _savePetrolCars.PetrolCarsToFile(_carService.GetAllCars());
-            _saveRentals.RentalsToFile(_rentalService.GetAllRentals());
-            _saveWorkers.WorkersToFile(_workerService.GetAllWorkers());
+            _saveClients.ClientsToFile(await _clientService.GetAllClients());
+            _saveElectricCars.ElectricCarsToFile(await _carService.GetAllCars());
+            _savePetrolCars.PetrolCarsToFile(await _carService.GetAllCars());
+            _saveRentals.RentalsToFile(await _rentalService.GetAllRentals());
+            _saveWorkers.WorkersToFile(await _workerService.GetAllWorkers());
         }
     }
 }

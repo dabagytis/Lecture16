@@ -19,29 +19,29 @@ namespace Lecture16_1.Core.Services
 
         // Methods
 
-        public void AddWorker(Darbuotojas darbuotojas)
+        public async Task AddWorker(Darbuotojas darbuotojas)
         {
-            _workerRepo.AddWorker(darbuotojas);
+            await _workerRepo.AddWorker(darbuotojas);
         }
 
-        public void DeleteWorker(int id)
+        public async Task DeleteWorker(int id)
         {
-            _workerRepo.DeleteWorker(id);
+            await _workerRepo.DeleteWorker(id);
         }
 
-        public List<Darbuotojas> GetAllWorkers()
+        public async Task<List<Darbuotojas>> GetAllWorkers()
         {
-            return _workerRepo.GetAllWorkers();
+            return await _workerRepo.GetAllWorkers();
         }
 
-        public Darbuotojas GetWorker(int id)
+        public async Task<Darbuotojas> GetWorker(int id)
         {
-            return _workerRepo.GetWorker(id);
+            return await _workerRepo.GetWorker(id);
         }
 
-        public void UpdateWorker(Darbuotojas darbuotojas)
+        public async Task UpdateWorker(Darbuotojas darbuotojas)
         {
-            _workerRepo.UpdateWorker(darbuotojas);
+            await _workerRepo.UpdateWorker(darbuotojas);
         }
     }
 }

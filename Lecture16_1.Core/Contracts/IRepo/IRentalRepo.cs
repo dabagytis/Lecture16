@@ -10,14 +10,14 @@ namespace Lecture16_1.Core.Contracts.IRepo
 {
     public interface IRentalRepo
     {
-        void AddRental(NuomosUzsakymas nuomosUzsakymas);
-        NuomosUzsakymas GetRental(int id);
-        List<NuomosUzsakymas> GetAllRentals();
-        void UpdateRental(NuomosUzsakymas nuomosUzsakymas);
-        void DeleteRental(int id);
-        List<NuomosUzsakymas> GetRentalsByCar(int id);
-        List<NuomosUzsakymas> GetRentalsByClient(int id);
-        List<NuomosUzsakymas> GetRentalsByWorker(int id);
-        List<NuomosUzsakymas> GetRentalsInDateRange(DateTime startDate, DateTime endDate);
+        Task AddRental(NuomosUzsakymas nuomosUzsakymas);
+        Task<NuomosUzsakymas> GetRental(int id);
+        Task<List<NuomosUzsakymas>> GetAllRentals();
+        Task UpdateRental(NuomosUzsakymas nuomosUzsakymas);
+        Task DeleteRental(int id);
+        Task<List<NuomosUzsakymas>> GetRentalsByCar(int id);
+        Task<List<NuomosUzsakymas>> GetRentalsByClient(int id);
+        Task<List<NuomosUzsakymas>> GetRentalsByWorker(int id);
+        Task<List<NuomosUzsakymas>> GetRentalsInDateRange(DateTime startDate, DateTime endDate);
     }
 }

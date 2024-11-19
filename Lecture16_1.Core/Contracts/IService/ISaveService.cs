@@ -8,6 +8,6 @@ namespace Lecture16_1.Core.Contracts.IService
 {
     public interface ISaveService
     {
-        void SaveAll();
+        Task SaveAll();
     }
 }

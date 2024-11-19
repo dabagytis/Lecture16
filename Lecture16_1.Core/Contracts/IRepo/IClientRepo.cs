@@ -9,10 +9,10 @@ namespace Lecture16_1.Core.Contracts.IRepo
 {
     public interface IClientRepo
     {
-        void AddClient(Klientas klientas);
-        Klientas GetClient(int id);
-        List<Klientas> GetAllClients();
-        void UpdateClient(Klientas klientas);
-        void DeleteClient(int id);
+        Task AddClient(Klientas klientas);
+        Task<Klientas> GetClient(int id);
+        Task<List<Klientas>> GetAllClients();
+        Task UpdateClient(Klientas klientas);
+        Task DeleteClient(int id);
     }
 }

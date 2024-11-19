@@ -22,29 +22,29 @@ namespace Lecture16_1.Core.Services
 
         // Methods
 
-        public void AddCar(Automobilis automobilis)
+        public async Task AddCar(Automobilis automobilis)
         {
-            _carRepo.AddCar(automobilis);
+            await _carRepo.AddCar(automobilis);
         }
 
-        public void DeleteCar(int id)
+        public async Task DeleteCar(int id)
         {
-            _carRepo.DeleteCar(id);
+            await _carRepo.DeleteCar(id);
         }
 
-        public List<Automobilis> GetAllCars()
+        public async Task<List<Automobilis>> GetAllCars()
         {
-            return _carRepo.GetAllCars();
+            return await _carRepo.GetAllCars();
         }
 
-        public List<Automobilis> GetAvailableCars(DateTime startDate, DateTime endDate)
+        public async Task<List<Automobilis>> GetAvailableCars(DateTime startDate, DateTime endDate)
         {
-            List<Automobilis> allCars = GetAllCars();
+            List<Automobilis> allCars = await GetAllCars();
             List<Automobilis> availableCars;
             Automobilis[] carArray = new Automobilis[allCars.Count];
             allCars.CopyTo(carArray);
             availableCars = carArray.ToList();
-            List<NuomosUzsakymas> relevantRentals = _rentalRepo.GetRentalsInDateRange(startDate, endDate);
+            List<NuomosUzsakymas> relevantRentals = await _rentalRepo.GetRentalsInDateRange(startDate, endDate);
             foreach (NuomosUzsakymas a in relevantRentals)
             {
                 foreach (Automobilis b in allCars)
@@ -58,20 +58,20 @@ namespace Lecture16_1.Core.Services
             return availableCars;
         }
 
-        public Automobilis GetCar(int id)
+        public async Task<Automobilis> GetCar(int id)
         {
-            return _carRepo.GetCar(id);
+            return await _carRepo.GetCar(id);
         }
 
-        public void UpdateCar(Automobilis automobilis)
+        public async Task UpdateCar(Automobilis automobilis)
         {
             if(automobilis is ElektrinisAutomobilis)
             {
-                _carRepo.UpdateElectricCar(automobilis);
+                await _carRepo.UpdateElectricCar(automobilis);
             }
             else
             {
-                _carRepo.UpdatePetrolCar(automobilis);
+                await _carRepo.UpdatePetrolCar(automobilis);
             }
         }
     }

@@ -19,29 +19,29 @@ namespace Lecture16_1.Core.Services
 
         // Methods
 
-        public void AddClient(Klientas klientas)
+        public async Task AddClient(Klientas klientas)
         {
-            _clientRepo.AddClient(klientas);
+            await _clientRepo.AddClient(klientas);
         }
 
-        public void DeleteClient(int id)
+        public async Task DeleteClient(int id)
         {
-            _clientRepo.DeleteClient(id);
+            await _clientRepo.DeleteClient(id);
         }
 
-        public List<Klientas> GetAllClients()
+        public async Task<List<Klientas>> GetAllClients()
         {
-            return _clientRepo.GetAllClients();
+            return await _clientRepo.GetAllClients();
         }
 
-        public Klientas GetClient(int id)
+        public async Task<Klientas> GetClient(int id)
         {
-            return _clientRepo.GetClient(id);
+            return await _clientRepo.GetClient(id);
         }
 
-        public void UpdateClient(Klientas klientas)
+        public async Task UpdateClient(Klientas klientas)
         {
-            _clientRepo.UpdateClient(klientas);
+            await _clientRepo.UpdateClient(klientas);
         }
     }
 }

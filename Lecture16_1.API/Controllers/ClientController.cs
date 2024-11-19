@@ -20,12 +20,12 @@ namespace Lecture16_1.API.Controllers
         }
 
         [HttpPost("AddClient")]
-        public void AddClient(Klientas klientas)
+        public async Task AddClient(Klientas klientas)
         {
             Log.Information("AddClient request received");
             try
             {
-                _clientService.AddClient(klientas);
+                await _clientService.AddClient(klientas);
                 Log.Information("AddClient request completed");
             }
             catch (Exception e)
@@ -35,12 +35,12 @@ namespace Lecture16_1.API.Controllers
         }
 
         [HttpDelete("DeleteClient")]
-        public void DeleteClient(int id)
+        public async Task DeleteClient(int id)
         {
             Log.Information("DeleteClient request received");
             try
             {
-                _clientService.DeleteClient(id);
+                await _clientService.DeleteClient(id);
                 Log.Information("DeleteClient request completed");
             }
             catch (Exception e)
@@ -50,12 +50,12 @@ namespace Lecture16_1.API.Controllers
         }
 
         [HttpGet("GetAllClients")]
-        public IActionResult GetAllClients()
+        public async Task<IActionResult> GetAllClients()
         {
             Log.Information("GetAllClients request received");
             try
             {
-                var x = _clientService.GetAllClients();
+                var x = await _clientService.GetAllClients();
                 Log.Information("GetAllClients request completed");
                 return Ok(x);
             }
@@ -67,12 +67,12 @@ namespace Lecture16_1.API.Controllers
         }
 
         [HttpGet("GetClient")]
-        public IActionResult GetClient(int id)
+        public async Task<IActionResult> GetClient(int id)
         {
             Log.Information("GetClient request received");
             try
             {
-                var x = _clientService.GetClient(id);
+                var x = await _clientService.GetClient(id);
                 Log.Information("GetClient request completed");
                 return Ok(x);
             }
@@ -84,12 +84,12 @@ namespace Lecture16_1.API.Controllers
         }
 
         [HttpPatch("UpdateClient")]
-        public void UpdateClient(Klientas klientas)
+        public async Task UpdateClient(Klientas klientas)
         {
             Log.Information("UpdateClient request received");
             try
             {
-                _clientService.UpdateClient(klientas);
+                await _clientService.UpdateClient(klientas);
                 Log.Information("UpdateClient request completed");
             }
             catch (Exception e)

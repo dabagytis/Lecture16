@@ -24,55 +24,55 @@ namespace Lecture16_1.Core.Services
 
         // Methods
 
-        public void AddRental(NuomosUzsakymas nuomosUzsakymas)
+        public async Task AddRental(NuomosUzsakymas nuomosUzsakymas)
         {
-            _rentalRepo.AddRental(nuomosUzsakymas);
+            await _rentalRepo.AddRental(nuomosUzsakymas);
         }
 
-        public void DeleteRental(int id)
+        public async Task DeleteRental(int id)
         {
-            _rentalRepo.DeleteRental(id);
+            await _rentalRepo.DeleteRental(id);
         }
 
-        public List<NuomosUzsakymas> GetAllRentals()
+        public async Task<List<NuomosUzsakymas>> GetAllRentals()
         {
-            return _rentalRepo.GetAllRentals();
+            return await _rentalRepo.GetAllRentals();
         }
 
-        public NuomosUzsakymas GetRental(int id)
+        public async Task<NuomosUzsakymas> GetRental(int id)
         {
-            return _rentalRepo.GetRental(id);
+            return await _rentalRepo.GetRental(id);
         }
 
-        public List<NuomosUzsakymas> GetRentalsByCar(int id)
+        public async Task<List<NuomosUzsakymas>> GetRentalsByCar(int id)
         {
-            return _rentalRepo.GetRentalsByCar(id);
+            return await _rentalRepo.GetRentalsByCar(id);
         }
 
-        public List<NuomosUzsakymas> GetRentalsByClient(int id)
+        public async Task<List<NuomosUzsakymas>> GetRentalsByClient(int id)
         {
-            return _rentalRepo.GetRentalsByClient(id);
+            return await _rentalRepo.GetRentalsByClient(id);
         }
 
-        public List<NuomosUzsakymas> GetRentalsByWorker(int id)
+        public async Task<List<NuomosUzsakymas>> GetRentalsByWorker(int id)
         {
-            return _rentalRepo.GetRentalsByWorker(id);
+            return await _rentalRepo.GetRentalsByWorker(id);
         }
 
-        public List<NuomosUzsakymas> GetRentalsInDateRange(DateTime startDate, DateTime endDate)
+        public async Task<List<NuomosUzsakymas>> GetRentalsInDateRange(DateTime startDate, DateTime endDate)
         {
-            return _rentalRepo.GetRentalsInDateRange(startDate, endDate);
+            return await _rentalRepo.GetRentalsInDateRange(startDate, endDate);
         }
 
-        public void UpdateRental(NuomosUzsakymas nuomosUzsakymas)
+        public async Task UpdateRental(NuomosUzsakymas nuomosUzsakymas)
         {
-            _rentalRepo.UpdateRental(nuomosUzsakymas);
+            await _rentalRepo.UpdateRental(nuomosUzsakymas);
         }
 
         public void RentalReceipt(int id)
         {
-            NuomosUzsakymas rentalForPrint = _rentalRepo.GetRental(id);
-            Automobilis carForPrint = _carRepo.GetCar(rentalForPrint.AutomobilisId);
+            NuomosUzsakymas rentalForPrint = _rentalRepo.GetRental(id).Result;
+            Automobilis carForPrint = _carRepo.GetCar(rentalForPrint.AutomobilisId).Result;
             _receiptRepo.RentalReceipt(rentalForPrint, carForPrint);
         }
     }

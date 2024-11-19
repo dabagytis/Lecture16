@@ -18,12 +18,12 @@ namespace Lecture16_1.API.Controllers
         }
 
         [HttpPost("AddElectricCar")]
-        public void AddElectricCar(ElektrinisAutomobilis automobilis)
+        public async Task AddElectricCar(ElektrinisAutomobilis automobilis)
         {
             Log.Information("AddElectricCar request received");
             try
             {
-                _carService.AddCar(automobilis);
+                await _carService.AddCar(automobilis);
                 Log.Information("AddElectricCar request completed");
             }
             catch(Exception e)
@@ -33,12 +33,12 @@ namespace Lecture16_1.API.Controllers
         }
 
         [HttpPost("AddPetrolCar")]
-        public void AddPetrolCar(NaftosAutomobilis automobilis)
+        public async Task AddPetrolCar(NaftosAutomobilis automobilis)
         {
             Log.Information("AddPetrolCar request received");
             try
             {
-                _carService.AddCar(automobilis);
+                await _carService.AddCar(automobilis);
                 Log.Information("AddPetrolCar request completed");
             }
             catch (Exception e)
@@ -48,12 +48,12 @@ namespace Lecture16_1.API.Controllers
         }
 
         [HttpDelete("DeleteCar")]
-        public void DeleteCar(int id)
+        public async Task DeleteCar(int id)
         {
             Log.Information("DeleteCar request received");
             try
             {
-                _carService.DeleteCar(id);
+                await _carService.DeleteCar(id);
                 Log.Information("DeleteCar request completed");
             }
             catch (Exception e)
@@ -63,12 +63,12 @@ namespace Lecture16_1.API.Controllers
         }
 
         [HttpGet("GetAllCars")]
-        public IActionResult GetAllCars()
+        public async Task<IActionResult> GetAllCars()
         {
             Log.Information("GetAllCars request received");
             try
             {
-                var x = JsonCustomConverter.SerializeWithPolymorphism(_carService.GetAllCars());
+                var x = JsonCustomConverter.SerializeWithPolymorphism(await _carService.GetAllCars());
                 Log.Information("GetAllCars request completed");
                 return Ok(x);
             }
@@ -80,12 +80,12 @@ namespace Lecture16_1.API.Controllers
         }
 
         [HttpGet("GetAvailableCars")]
-        public IActionResult GetAvailableCars(DateTime startDate, DateTime endDate)
+        public async Task<IActionResult> GetAvailableCars(DateTime startDate, DateTime endDate)
         {
             Log.Information("GetAvailableCars request received");
             try
             {
-                var x = _carService.GetAvailableCars(startDate, endDate);
+                var x = await _carService.GetAvailableCars(startDate, endDate);
                 Log.Information("GetAvailableCars request completed");
                 return Ok(x);
             }
@@ -97,12 +97,12 @@ namespace Lecture16_1.API.Controllers
         }
 
         [HttpGet("GetCar")]
-        public IActionResult GetCar(int id)
+        public async Task<IActionResult> GetCar(int id)
         {
             Log.Information("GetCar request received");
             try
             {
-                var x = _carService.GetCar(id);
+                var x = await _carService.GetCar(id);
                 Log.Information("GetCar request completed");
                 return Ok(x);
             }
@@ -114,12 +114,12 @@ namespace Lecture16_1.API.Controllers
         }
 
         [HttpPatch("UpdateElectricCar")]
-        public void UpdateElectricCar(ElektrinisAutomobilis automobilis)
+        public async Task UpdateElectricCar(ElektrinisAutomobilis automobilis)
         {
             Log.Information("UpdateElectricCar request received");
             try
             {
-                _carService.UpdateCar(automobilis);
+                await _carService.UpdateCar(automobilis);
                 Log.Information("UpdateElectricCar request completed");
             }
             catch (Exception e)
@@ -129,12 +129,12 @@ namespace Lecture16_1.API.Controllers
         }
 
         [HttpPatch("UpdatePetrolCar")]
-        public void UpdatePetrolCar(NaftosAutomobilis automobilis)
+        public async Task UpdatePetrolCar(NaftosAutomobilis automobilis)
         {
             Log.Information("UpdatePetrolCar request received");
             try
             {
-                _carService.UpdateCar(automobilis);
+                await _carService.UpdateCar(automobilis);
                 Log.Information("UpdatePetrolCar request completed");
             }
             catch (Exception e)

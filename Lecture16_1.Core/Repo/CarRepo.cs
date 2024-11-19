@@ -23,7 +23,7 @@ namespace Lecture16_1.Core.Repo
 
         // Methods
 
-        public void AddCar(Automobilis automobilis)
+        public async Task AddCar(Automobilis automobilis)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -31,40 +31,40 @@ namespace Lecture16_1.Core.Repo
 
                 if(automobilis is ElektrinisAutomobilis)
                 {
-                    connection.Execute("INSERT INTO Automobiliai (Pavadinimas, Metai, NuomosKaina, BaterijosTalpa, MaxNuvaziuojamasAtstumas, IkrovimoLaikas) VALUES (@Pavadinimas, @Metai, @NuomosKaina, @BaterijosTalpa, @MaxNuvaziuojamasAtstumas, @IkrovimoLaikas)", automobilis);
+                    await connection.ExecuteAsync("INSERT INTO Automobiliai (Pavadinimas, Metai, NuomosKaina, BaterijosTalpa, MaxNuvaziuojamasAtstumas, IkrovimoLaikas) VALUES (@Pavadinimas, @Metai, @NuomosKaina, @BaterijosTalpa, @MaxNuvaziuojamasAtstumas, @IkrovimoLaikas)", automobilis);
                 }
                 else
                 {
-                    connection.Execute("INSERT INTO Automobiliai (Pavadinimas, Metai, NuomosKaina, VariklioTuris, DegaluTipas, CO2Ismetimas) VALUES (@Pavadinimas, @Metai, @NuomosKaina, @VariklioTuris, @DegaluTipas, @CO2Ismetimas)", automobilis);
+                    await connection.ExecuteAsync("INSERT INTO Automobiliai (Pavadinimas, Metai, NuomosKaina, VariklioTuris, DegaluTipas, CO2Ismetimas) VALUES (@Pavadinimas, @Metai, @NuomosKaina, @VariklioTuris, @DegaluTipas, @CO2Ismetimas)", automobilis);
                 }
             }
         }
 
-        public void DeleteCar(int id)
+        public async Task DeleteCar(int id)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
 
-                connection.Execute("DELETE FROM Automobiliai WHERE Id = @id", new { id });
+                await connection.ExecuteAsync("DELETE FROM Automobiliai WHERE Id = @id", new { id });
             }
         }
 
-        public List<Automobilis> GetAllCars()
+        public async Task<List<Automobilis>> GetAllCars()
         {
             List<Automobilis> allCars = new List<Automobilis>();
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
 
-                allCars.AddRange(connection.Query<ElektrinisAutomobilis>("SELECT * FROM Automobiliai WHERE BaterijosTalpa != 0").ToList());
+                allCars.AddRange((await connection.QueryAsync<ElektrinisAutomobilis>("SELECT * FROM Automobiliai WHERE BaterijosTalpa != 0")).ToList());
 
-                allCars.AddRange(connection.Query<NaftosAutomobilis>("SELECT * FROM Automobiliai WHERE VariklioTuris != 0").ToList());
+                allCars.AddRange((await connection.QueryAsync<NaftosAutomobilis>("SELECT * FROM Automobiliai WHERE VariklioTuris != 0")).ToList());
             }
             return allCars;
         }
 
-        public Automobilis GetCar(int id)
+        public async Task<Automobilis> GetCar(int id)
         {
             Automobilis carById = new Automobilis();
             using (var connection = new SqlConnection(_connectionString))
@@ -73,33 +73,33 @@ namespace Lecture16_1.Core.Repo
 
                 try
                 {
-                    carById = connection.QueryFirst<ElektrinisAutomobilis>("SELECT * FROM Automobiliai WHERE Id = @Id AND BaterijosTalpa != 0", new { Id = id });
+                    carById = await connection.QueryFirstAsync<ElektrinisAutomobilis>("SELECT * FROM Automobiliai WHERE Id = @Id AND BaterijosTalpa != 0", new { Id = id });
                 }
                 catch
                 {
-                    carById = connection.QueryFirst<NaftosAutomobilis>("SELECT * FROM Automobiliai WHERE Id = @Id", new { Id = id });
+                    carById = await connection.QueryFirstAsync<NaftosAutomobilis>("SELECT * FROM Automobiliai WHERE Id = @Id", new { Id = id });
                 }
             }
             return carById;
         }
 
-        public void UpdateElectricCar(Automobilis automobilis)
+        public async Task UpdateElectricCar(Automobilis automobilis)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
 
-                connection.Execute("UPDATE Automobiliai SET Pavadinimas = @Pavadinimas , Metai = @Metai , NuomosKaina = @NuomosKaina , BaterijosTalpa = @BaterijosTalpa , MaxNuvaziuojamasAtstumas = @MaxNuvaziuojamasAtstumas , IkrovimoLaikas = @IkrovimoLaikas WHERE Id = @Id", automobilis);
+                await connection.ExecuteAsync("UPDATE Automobiliai SET Pavadinimas = @Pavadinimas , Metai = @Metai , NuomosKaina = @NuomosKaina , BaterijosTalpa = @BaterijosTalpa , MaxNuvaziuojamasAtstumas = @MaxNuvaziuojamasAtstumas , IkrovimoLaikas = @IkrovimoLaikas WHERE Id = @Id", automobilis);
             }
         }
 
-        public void UpdatePetrolCar(Automobilis automobilis)
+        public async Task UpdatePetrolCar(Automobilis automobilis)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
 
-                connection.Execute("UPDATE Automobiliai SET Pavadinimas = @Pavadinimas , Metai = @Metai , NuomosKaina = @NuomosKaina , VariklioTuris = @VariklioTuris , DegaluTipas = @DegaluTipas , CO2Ismetimas = @CO2Ismetimas WHERE Id = @Id", automobilis);
+                await connection.ExecuteAsync("UPDATE Automobiliai SET Pavadinimas = @Pavadinimas , Metai = @Metai , NuomosKaina = @NuomosKaina , VariklioTuris = @VariklioTuris , DegaluTipas = @DegaluTipas , CO2Ismetimas = @CO2Ismetimas WHERE Id = @Id", automobilis);
             }
         }
     }

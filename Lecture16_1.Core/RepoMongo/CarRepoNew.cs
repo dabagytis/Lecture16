@@ -1,5 +1,4 @@
 ﻿using Lecture16_1.Core.Contracts.IRepo;
-using Lecture16_1.Core.Contracts.IRepoMongo;
 using Lecture16_1.Core.Models.Car;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -20,34 +19,34 @@ namespace Lecture16_1.Core.RepoMongo
             _carRepoNew = database.GetCollection<Automobilis>("cars");
         }
 
-        public void AddCar(Automobilis automobilis)
+        public async Task AddCar(Automobilis automobilis)
         {
-            throw new NotImplementedException();
+            await _carRepoNew.InsertOneAsync(automobilis);
         }
 
-        public void DeleteCar(int id)
+        public async Task DeleteCar(int id)
         {
-            throw new NotImplementedException();
+            await _carRepoNew.DeleteOneAsync(d => d.Id == id);
         }
 
-        public List<Automobilis> GetAllCars()
+        public async Task<List<Automobilis>> GetAllCars()
         {
-            throw new NotImplementedException();
+            return await _carRepoNew.Find(_ => true).ToListAsync();
         }
 
-        public Automobilis GetCar(int id)
+        public async Task<Automobilis> GetCar(int id)
         {
-            throw new NotImplementedException();
+            return await _carRepoNew.Find<Automobilis>(c => c.Id == id).FirstOrDefaultAsync();
         }
 
-        public void UpdateElectricCar(Automobilis automobilis)
+        public async Task UpdateElectricCar(Automobilis automobilis)
         {
-            throw new NotImplementedException();
+            await _carRepoNew.ReplaceOneAsync(c => c.Id == automobilis.Id, automobilis);
         }
 
-        public void UpdatePetrolCar(Automobilis automobilis)
+        public async Task UpdatePetrolCar(Automobilis automobilis)
         {
-            throw new NotImplementedException();
+            await _carRepoNew.ReplaceOneAsync(c => c.Id == automobilis.Id, automobilis);
         }
     }
 }

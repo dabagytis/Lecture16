@@ -17,12 +17,12 @@ namespace Lecture16_1.API.Controllers
         }
 
         [HttpPost("AddWorker")]
-        public void AddWorker(Darbuotojas darbuotojas)
+        public async Task AddWorker(Darbuotojas darbuotojas)
         {
             Log.Information("AddWorker request received");
             try
             {
-                _workerService.AddWorker(darbuotojas);
+                await _workerService.AddWorker(darbuotojas);
                 Log.Information("AddWorker request completed");
             }
             catch (Exception e)
@@ -32,12 +32,12 @@ namespace Lecture16_1.API.Controllers
         }
 
         [HttpDelete("DeleteWorker")]
-        public void DeleteWorker(int id)
+        public async Task DeleteWorker(int id)
         {
             Log.Information("DeleteWorker request received");
             try
             {
-                _workerService.DeleteWorker(id);
+                await _workerService.DeleteWorker(id);
                 Log.Information("DeleteWorker request completed");
             }
             catch (Exception e)
@@ -47,12 +47,12 @@ namespace Lecture16_1.API.Controllers
         }
 
         [HttpGet("GetAllWorkers")]
-        public IActionResult GetAllWorkers()
+        public async Task<IActionResult> GetAllWorkers()
         {
             Log.Information("GetAllWorkers request received");
             try
             {
-                var x = _workerService.GetAllWorkers();
+                var x = await _workerService.GetAllWorkers();
                 Log.Information("GetAllWorkers request completed");
                 return Ok(x);
             }
@@ -64,12 +64,12 @@ namespace Lecture16_1.API.Controllers
         }
 
         [HttpGet("GetWorker")]
-        public IActionResult GetWorker(int id)
+        public async Task<IActionResult> GetWorker(int id)
         {
             Log.Information("GetWorker request received");
             try
             {
-                var x = _workerService.GetWorker(id);
+                var x = await _workerService.GetWorker(id);
                 Log.Information("GetWorker request completed");
                 return Ok(x);
             }
@@ -81,12 +81,12 @@ namespace Lecture16_1.API.Controllers
         }
 
         [HttpPatch("UpdateWorker")]
-        public void UpdateWorker(Darbuotojas darbuotojas)
+        public async Task UpdateWorker(Darbuotojas darbuotojas)
         {
             Log.Information("UpdateWorker request received");
             try
             {
-                _workerService.UpdateWorker(darbuotojas);
+                await _workerService.UpdateWorker(darbuotojas);
                 Log.Information("UpdateWorker request completed");
             }
             catch (Exception e)

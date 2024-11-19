@@ -21,57 +21,57 @@ namespace Lecture16_1.Core.Repo
 
         // Methods
 
-        public void AddClient(Klientas klientas)
+        public async Task AddClient(Klientas klientas)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
 
-                connection.Execute("INSERT INTO Klientai (Vardas, Pavarde, ElPastas, Telefonas) VALUES (@Vardas, @Pavarde, @ElPastas, @Telefonas)", klientas);
+                await connection.ExecuteAsync("INSERT INTO Klientai (Vardas, Pavarde, ElPastas, Telefonas) VALUES (@Vardas, @Pavarde, @ElPastas, @Telefonas)", klientas);
             }
         }
 
-        public void DeleteClient(int id)
+        public async Task DeleteClient(int id)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
 
-                connection.Execute("DELETE FROM Klientai WHERE Id = @id", new { id });
+                await connection.ExecuteAsync("DELETE FROM Klientai WHERE Id = @id", new { id });
             }
         }
 
-        public List<Klientas> GetAllClients()
+        public async Task<List<Klientas>> GetAllClients()
         {
             List<Klientas> allClients = new List<Klientas>();
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
 
-                allClients = connection.Query<Klientas>("SELECT * FROM Klientai").ToList();
+                allClients = (await connection.QueryAsync<Klientas>("SELECT * FROM Klientai")).ToList();
             }
             return allClients;
         }
 
-        public Klientas GetClient(int id)
+        public async Task<Klientas> GetClient(int id)
         {
             Klientas clientById = new Klientas();
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
 
-                clientById = connection.QueryFirst<Klientas>("SELECT * FROM Klientai WHERE Id = @Id", new { Id = id });
+                clientById = await connection.QueryFirstAsync<Klientas>("SELECT * FROM Klientai WHERE Id = @Id", new { Id = id });
             }
             return clientById;
         }
 
-        public void UpdateClient(Klientas klientas)
+        public async Task UpdateClient(Klientas klientas)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
 
-                connection.Execute("UPDATE Klientai SET Vardas = @Vardas , Pavarde = @Pavarde , ElPastas = @ElPastas , Telefonas = @Telefonas WHERE Id = @Id", klientas);
+                await connection.ExecuteAsync("UPDATE Klientai SET Vardas = @Vardas , Pavarde = @Pavarde , ElPastas = @ElPastas , Telefonas = @Telefonas WHERE Id = @Id", klientas);
             }
         }
     }

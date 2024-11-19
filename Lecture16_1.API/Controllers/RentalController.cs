@@ -17,12 +17,12 @@ namespace Lecture16_1.API.Controllers
         }
 
         [HttpPost("AddRental")]
-        public void AddRental(NuomosUzsakymas nuomosUzsakymas)
+        public async Task AddRental(NuomosUzsakymas nuomosUzsakymas)
         {
             Log.Information("AddRental request received");
             try
             {
-                _rentalService.AddRental(nuomosUzsakymas);
+                await _rentalService.AddRental(nuomosUzsakymas);
                 Log.Information("AddRental request completed");
             }
             catch (Exception e)
@@ -32,12 +32,12 @@ namespace Lecture16_1.API.Controllers
         }
 
         [HttpDelete("DeleteRental")]
-        public void DeleteRental(int id)
+        public async Task DeleteRental(int id)
         {
             Log.Information("DeleteRental request received");
             try
             {
-                _rentalService.DeleteRental(id);
+                await _rentalService.DeleteRental(id);
                 Log.Information("DeleteRental request completed");
             }
             catch (Exception e)
@@ -47,12 +47,12 @@ namespace Lecture16_1.API.Controllers
         }
 
         [HttpGet("GetAllRentals")]
-        public IActionResult GetAllRentals()
+        public async Task<IActionResult> GetAllRentals()
         {
             Log.Information("GetAllRentals request received");
             try
             {
-                var x = _rentalService.GetAllRentals();
+                var x = await _rentalService.GetAllRentals();
                 Log.Information("GetAllRentals request completed");
                 return Ok(x);
             }
@@ -64,12 +64,12 @@ namespace Lecture16_1.API.Controllers
         }
 
         [HttpGet("GetRental")]
-        public IActionResult GetRental(int id)
+        public async Task<IActionResult> GetRental(int id)
         {
             Log.Information("GetRental request received");
             try
             {
-                var x = _rentalService.GetRental(id);
+                var x = await _rentalService.GetRental(id);
                 Log.Information("GetRental request completed");
                 return Ok(x);
             }
@@ -81,12 +81,12 @@ namespace Lecture16_1.API.Controllers
         }
 
         [HttpGet("GetRentalsByCar")]
-        public IActionResult GetRentalsByCar(int id)
+        public async Task<IActionResult> GetRentalsByCar(int id)
         {
             Log.Information("GetRentalsByCar request received");
             try
             {
-                var x = _rentalService.GetRentalsByCar(id);
+                var x = await _rentalService.GetRentalsByCar(id);
                 Log.Information("GetRentalsByCar request completed");
                 return Ok(x);
             }
@@ -98,12 +98,12 @@ namespace Lecture16_1.API.Controllers
         }
 
         [HttpGet("GetRentalsByClient")]
-        public IActionResult GetRentalsByClient(int id)
+        public async Task<IActionResult> GetRentalsByClient(int id)
         {
             Log.Information("GetRentalsByClient request received");
             try
             {
-                var x = _rentalService.GetRentalsByClient(id);
+                var x = await _rentalService.GetRentalsByClient(id);
                 Log.Information("GetRentalsByClient request completed");
                 return Ok(x);
             }
@@ -115,12 +115,12 @@ namespace Lecture16_1.API.Controllers
         }
 
         [HttpGet("GetRentalsByWorker")]
-        public IActionResult GetRentalsByWorker(int id)
+        public async Task<IActionResult> GetRentalsByWorker(int id)
         {
             Log.Information("GetRentalsByWorker request received");
             try
             {
-                var x = _rentalService.GetRentalsByWorker(id);
+                var x = await _rentalService.GetRentalsByWorker(id);
                 Log.Information("GetRentalsByWorker request completed");
                 return Ok(x);
             }
@@ -132,12 +132,12 @@ namespace Lecture16_1.API.Controllers
         }
 
         [HttpGet("GetRentalsInDateRange")]
-        public IActionResult GetRentalsInDateRange(DateTime startDate, DateTime endDate)
+        public async Task<IActionResult> GetRentalsInDateRange(DateTime startDate, DateTime endDate)
         {
             Log.Information("GetRentalsInDateRange request received");
             try
             {
-                var x = _rentalService.GetRentalsInDateRange(startDate, endDate);
+                var x = await _rentalService.GetRentalsInDateRange(startDate, endDate);
                 Log.Information("GetRentalsInDateRange request completed");
                 return Ok(x);
             }
@@ -149,12 +149,12 @@ namespace Lecture16_1.API.Controllers
         }
 
         [HttpPatch("UpdateRental")]
-        public void UpdateRental(NuomosUzsakymas nuomosUzsakymas)
+        public async Task UpdateRental(NuomosUzsakymas nuomosUzsakymas)
         {
             Log.Information("UpdateRental request received");
             try
             {
-                _rentalService.UpdateRental(nuomosUzsakymas);
+                await _rentalService.UpdateRental(nuomosUzsakymas);
                 Log.Information("UpdateRental request completed");
             }
             catch (Exception e)

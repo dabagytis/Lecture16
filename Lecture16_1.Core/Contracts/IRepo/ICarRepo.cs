@@ -9,11 +9,11 @@ namespace Lecture16_1.Core.Contracts.IRepo
 {
     public interface ICarRepo
     {
-        void AddCar(Automobilis automobilis);
-        Automobilis GetCar(int id);
-        List<Automobilis> GetAllCars();
-        void UpdateElectricCar(Automobilis automobilis);
-        void UpdatePetrolCar(Automobilis automobilis);
-        void DeleteCar(int id);
+        Task AddCar(Automobilis automobilis);
+        Task<Automobilis> GetCar(int id);
+        Task<List<Automobilis>> GetAllCars();
+        Task UpdateElectricCar(Automobilis automobilis);
+        Task UpdatePetrolCar(Automobilis automobilis);
+        Task DeleteCar(int id);
     }
 }

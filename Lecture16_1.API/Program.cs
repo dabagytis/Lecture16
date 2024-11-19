@@ -2,6 +2,7 @@ using Lecture16_1.Core.Contracts.IRepo;
 using Lecture16_1.Core.Contracts.ISave;
 using Lecture16_1.Core.Contracts.IService;
 using Lecture16_1.Core.Repo;
+using Lecture16_1.Core.RepoMongo;
 using Lecture16_1.Core.Services;
 using Lecture16_1.Core.Utils.CreateBackup;
 using Microsoft.AspNetCore.Hosting.Server;
@@ -24,7 +25,8 @@ builder.Services.AddTransient<IRentalService, RentalService>();
 builder.Services.AddTransient<IWorkerRepo, WorkerRepo>(x => new WorkerRepo(serverPath));
 builder.Services.AddTransient<IWorkerService, WorkerService>();
 
-builder.Services.AddTransient<ICarRepo, CarRepo>(x => new CarRepo(serverPath));
+//builder.Services.AddTransient<ICarRepo, CarRepo>(x => new CarRepo(serverPath));
+builder.Services.AddTransient<ICarRepo, CarRepoNew>();
 builder.Services.AddTransient<ICarService, CarService>();
 
 builder.Services.AddTransient<ISaveClients, SaveClients>(x => new SaveClients("Clients.txt"));

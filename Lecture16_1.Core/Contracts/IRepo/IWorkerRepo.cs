@@ -9,10 +9,10 @@ namespace Lecture16_1.Core.Contracts.IRepo
 {
     public interface IWorkerRepo
     {
-        void AddWorker(Darbuotojas darbuotojas);
-        Darbuotojas GetWorker(int id);
-        List<Darbuotojas> GetAllWorkers();
-        void UpdateWorker(Darbuotojas darbuotojas);
-        void DeleteWorker(int id);
+        Task AddWorker(Darbuotojas darbuotojas);
+        Task<Darbuotojas> GetWorker(int id);
+        Task<List<Darbuotojas>> GetAllWorkers();
+        Task UpdateWorker(Darbuotojas darbuotojas);
+        Task DeleteWorker(int id);
     }
 }
